@@ -11,7 +11,11 @@ class CategoryController extends Controller
 
     //go to category page
     public function listPage(){
-        $data = Category::orderBy('created_at','desc')->paginate(5);
+        $data = Category::when(request('searchKey'),function($query){
+            $query->where('name','like','%'.request('searchKey').'%');        })
+        ->orderBy('created_at','desc')
+        ->paginate(5);
+        $data -> appends(request()->all());
 
         return view('admin.category.list',compact('data'));
     }

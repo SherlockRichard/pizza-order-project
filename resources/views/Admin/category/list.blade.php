@@ -28,11 +28,19 @@
                                 <i class="zmdi zmdi-plus"></i>add item
                             </button>
                         </a>
-                        <button class="au-btn au-btn-icon au-btn--green au-btn--small">
-                            CSV download
-                        </button>
+
                     </div>
                 </div>
+                <!--Search-->
+                <form action="{{ route('admin#categorylist') }}" method="GET">
+                    @csrf
+                    <div class="d-flex col-3 offset-9">
+                        <input class="form-control" type="text" name="searchKey" placeholder=" Search...">
+                        <button class="btn btn-dark text-white" type="submit"><i
+                                class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+
+                </form>
 
                 @if (count($data) != 0)
 
@@ -110,7 +118,7 @@
 
                             </tbody>
                         </table>
-                        {{ $data->links() }}
+                        {{-- {{ $data->links() }} --}}
                     </div>
                 @else
                     <div class="text-center  px-6">
@@ -130,7 +138,7 @@
 
         <!--Delete Successful Message -->
         @if (session('deleteSuccess'))
-            <div class="alert alert-danger alert-dismissible fade show col-5 offset-7" role="alert">
+            <div class="my-4 alert alert-danger alert-dismissible fade show col-4 offset-8" role="alert">
                 {{ session('deleteSuccess') }}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
