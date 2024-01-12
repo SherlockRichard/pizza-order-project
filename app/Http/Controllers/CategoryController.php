@@ -11,7 +11,7 @@ class CategoryController extends Controller
 
     //go to category page
     public function listPage(){
-        $data = Category::orderBy('created_at','desc')->get();
+        $data = Category::orderBy('created_at','desc')->paginate(5);
 
         return view('admin.category.list',compact('data'));
     }
@@ -27,6 +27,12 @@ class CategoryController extends Controller
         Category::create($data);
         return redirect()->route('admin#categorylist');
 
+    }
+    //delete Category
+
+    public function delete($id){
+       Category::where('id',$id)->delete();
+       return back()->with(['deleteSuccess'=> 'Category delete Successful!']);
     }
 ///....................Private Function............//
 

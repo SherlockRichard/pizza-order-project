@@ -3,6 +3,14 @@
 @section('title', 'Category List Page')
 
 @section('content')
+    {{-- <!--Add successful Message-->
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div> --}}
+
     <div class="section__content section__content--p30">
         <div class="container-fluid">
             <div class="col-md-12">
@@ -25,47 +33,52 @@
                         </button>
                     </div>
                 </div>
-                <div class="table-responsive table-responsive-data2">
-                    <table class="table table-data2">
-                        <thead>
-                            <tr>
-                                <th>id</th>
-                                <th>name</th>
-                                <th>created date</th>
 
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                @if (count($data) != 0)
 
-                            @foreach ($data as $item)
-                                <tr class="tr-shadow">
-                                    <td>{{ $item->id }}</td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->created_at->format('j-M-Y') }}</td>
+                    <div class="table-responsive table-responsive-data2">
+                        <table class="table table-data2">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>name</th>
+                                    <th>created date</th>
 
-                                    <td>
-                                        <div class="table-data-feature">
-                                            <button class="item" data-toggle="tooltip" data-placement="top"
-                                                title="View">
-                                                <i class="fa-regular fa-eye"></i>
-                                            </button>
-                                            <button class="item" data-toggle="tooltip" data-placement="top"
-                                                title="Edit">
-                                                <i class="zmdi zmdi-edit"></i>
-                                            </button>
-                                            <button class="item" data-toggle="tooltip" data-placement="top"
-                                                title="Delete">
-                                                <i class="zmdi zmdi-delete"></i>
-                                            </button>
-
-                                        </div>
-                                    </td>
+                                    <th></th>
                                 </tr>
+                            </thead>
+                            <tbody>
 
-                                <tr class="spacer"></tr>
-                            @endforeach
-                            {{-- <tr class="tr-shadow">
+                                @foreach ($data as $item)
+                                    <tr class="tr-shadow">
+                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->created_at->format('j-M-Y') }}</td>
+
+                                        <td>
+                                            <div class="table-data-feature">
+                                                <button class="item" data-toggle="tooltip" data-placement="top"
+                                                    title="View">
+                                                    <i class="fa-regular fa-eye"></i>
+                                                </button>
+                                                <button class="item" data-toggle="tooltip" data-placement="top"
+                                                    title="Edit">
+                                                    <i class="zmdi zmdi-edit"></i>
+                                                </button>
+                                                <a href="{{ route('admin#deleteCategory', $item->id) }}">
+                                                    <button class="item" data-toggle="tooltip" data-placement="top"
+                                                        title="Delete">
+                                                        <i class="zmdi zmdi-delete"></i>
+                                                    </button>
+
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="spacer"></tr>
+                                @endforeach
+                                {{-- <tr class="tr-shadow">
                                 <td>Lori Lynch</td>
                                 <td>
                                     <span class="block-email">lori@example.com</span>
@@ -95,12 +108,37 @@
                             </tr>
                             <tr class="spacer"></tr> --}}
 
-                        </tbody>
-                    </table>
-                </div>
+                            </tbody>
+                        </table>
+                        {{ $data->links() }}
+                    </div>
+                @else
+                    <div class="text-center  px-6">
+                        <h3>Data Empty</h3>
+                    </div>
+
+                @endif
                 <!-- END DATA TABLE -->
             </div>
+
+
         </div>
+
+
+
+
+
+        <!--Delete Successful Message -->
+        @if (session('deleteSuccess'))
+            <div class="alert alert-danger alert-dismissible fade show col-5 offset-7" role="alert">
+                {{ session('deleteSuccess') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
+        <!--Delete Successful Message End -->
     </div>
 
 @endsection
