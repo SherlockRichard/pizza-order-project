@@ -38,6 +38,29 @@ class CategoryController extends Controller
        Category::where('id',$id)->delete();
        return back()->with(['deleteSuccess'=> 'Category delete Successful!']);
     }
+
+    //go to edit Category Page
+    public function editPage($id){
+        $category = Category::where('id',$id)->first();
+       return view('admin.category.edit',compact('category'));
+    }
+
+
+    // Edit Category
+    public function edit($id,Request $req){
+       //edit Validation
+        $validationRules = [
+        'categoryName' => 'required|unique:categories,name,'.$id
+    ];
+    Validator::make($req->all(),$validationRules)->validate();
+
+    $data = $this->getRequestData($req);
+    Category::where('id',$id)->update($data);
+    return redirect()->route('admin#categorylist')->with(['updateSuccess'=>'Category Update Successfully!']);
+
+    }
+
+
 ///....................Private Function............//
 
 private function validateCategory(Request $request){

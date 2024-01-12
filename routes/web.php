@@ -43,6 +43,8 @@ Route::middleware([
          Route::get('create',[CategoryController::class,'createPage'])->name('admin#categoryCreatePage');
          Route::post('create',[CategoryController::class,'create'])->name('admin#createCategory');
          Route::get('delete/{id}',[CategoryController::class,'delete'])->name('admin#deleteCategory');
+         Route::get('edit/{id}',[CategoryController::class,'editPage'])->name('admin#categoryEditPage');
+         Route::post('edit/{id}',[CategoryController::class,'edit'])->name('admin#editCategory');
 
         });
     });

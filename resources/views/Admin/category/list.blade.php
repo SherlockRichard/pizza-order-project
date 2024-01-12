@@ -11,6 +11,7 @@
         </button>
     </div> --}}
 
+
     <div class="section__content section__content--p30">
         <div class="container-fluid">
             <div class="col-md-12">
@@ -21,6 +22,20 @@
                             <h2 class="title-1">Category List</h2>
 
                         </div>
+                        <!--Update Successful Message -->
+                        @if (session('updateSuccess'))
+                            <div class="my-4 alert alert-success alert-dismissible fade show d-flex align-items-center col-9 "
+                                role="alert">
+                                {{ session('updateSuccess') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
+
+                        <!--Update Successful Message End -->
+
+
                     </div>
                     <div class="table-data__tool-right">
                         <a href="{{ route('admin#categoryCreatePage') }}">
@@ -30,12 +45,15 @@
                         </a>
 
                     </div>
+
+
                 </div>
                 <!--Search-->
                 <form action="{{ route('admin#categorylist') }}" method="GET">
                     @csrf
                     <div class="d-flex col-3 offset-9">
-                        <input class="form-control" type="text" name="searchKey" placeholder=" Search...">
+                        <input class="form-control" type="text" name="searchKey" placeholder=" Search..."
+                            value="{{ request('searchKey') }}">
                         <button class="btn btn-dark text-white" type="submit"><i
                                 class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
@@ -65,14 +83,16 @@
 
                                         <td>
                                             <div class="table-data-feature">
-                                                <button class="item" data-toggle="tooltip" data-placement="top"
+                                                {{-- <button class="item" data-toggle="tooltip" data-placement="top"
                                                     title="View">
                                                     <i class="fa-regular fa-eye"></i>
-                                                </button>
-                                                <button class="item" data-toggle="tooltip" data-placement="top"
-                                                    title="Edit">
-                                                    <i class="zmdi zmdi-edit"></i>
-                                                </button>
+                                                </button> --}}
+                                                <a href="{{ route('admin#categoryEditPage', $item->id) }}">
+                                                    <button class="item" data-toggle="tooltip" data-placement="top"
+                                                        title="Edit">
+                                                        <i class="zmdi zmdi-edit"></i>
+                                                    </button>
+                                                </a>
                                                 <a href="{{ route('admin#deleteCategory', $item->id) }}">
                                                     <button class="item" data-toggle="tooltip" data-placement="top"
                                                         title="Delete">
@@ -118,7 +138,7 @@
 
                             </tbody>
                         </table>
-                        {{-- {{ $data->links() }} --}}
+                        {{ $data->links() }}
                     </div>
                 @else
                     <div class="text-center  px-6">
@@ -147,6 +167,8 @@
         @endif
 
         <!--Delete Successful Message End -->
+
+
     </div>
 
 @endsection
