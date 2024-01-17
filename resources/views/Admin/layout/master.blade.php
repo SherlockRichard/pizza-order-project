@@ -88,7 +88,7 @@
                         <div class="header-wrap">
                             <h1> Admin Dashboard</h1>
                             <div class="header-button">
-                                <div class="noti-wrap">
+                                {{-- <div class="noti-wrap">
                                     <div class="noti__item js-item-menu">
                                         <i class="zmdi zmdi-notifications"></i>
                                         <span class="quantity">3</span>
@@ -128,12 +128,17 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="account-wrap">
                                     <div class="account-item clearfix js-item-menu">
                                         <div class="image">
-                                            <img src="{{ asset('admin/images/icon/avatar-01.jpg') }}"
-                                                alt="John Doe" />
+                                            @if (Auth::user()->image == null)
+                                                <img src="{{ asset('admin/images/default_profile.jpg') }}"
+                                                    alt="Default Image" />
+                                            @else
+                                                <img src="{{ asset('admin/images/default_profile.jpg') }}"
+                                                    alt="Default Image" />
+                                            @endif
                                         </div>
                                         <div class="content">
                                             <a class="js-acc-btn" href="#">{{ Auth::user()->name }}</a>
@@ -142,8 +147,8 @@
                                             <div class="info clearfix">
                                                 <div class="image">
                                                     <a href="#">
-                                                        <img src="{{ asset('admin/images/icon/avatar-01.jpg') }}"
-                                                            alt="John Doe" />
+                                                        <img src="{{ asset('admin/images/default_profile.jpg') }}"
+                                                            alt="Default Image" />
                                                     </a>
                                                 </div>
                                                 <div class="content">
@@ -155,8 +160,15 @@
                                             </div>
                                             <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">
-                                                    <a href="#">
+                                                    <a href="{{ route('admin#accountDeatils') }}">
                                                         <i class="zmdi zmdi-account"></i>Account</a>
+                                                </div>
+                                            </div>
+                                            <!--Chang Password-->
+                                            <div class="account-dropdown__body">
+                                                <div class="account-dropdown__item">
+                                                    <a href="{{ route('admin#changePasswordPage') }}">
+                                                        <i class="fa-solid fa-lock"></i>Change Password</a>
                                                 </div>
                                             </div>
                                             <div class="account-dropdown__footer">
