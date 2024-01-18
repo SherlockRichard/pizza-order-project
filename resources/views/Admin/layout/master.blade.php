@@ -134,10 +134,10 @@
                                         <div class="image">
                                             @if (Auth::user()->image == null)
                                                 <img src="{{ asset('admin/images/default_profile.jpg') }}"
-                                                    alt="Default Image" />
+                                                    class="img-thumbnail" alt="Default Image" />
                                             @else
-                                                <img src="{{ asset('admin/images/default_profile.jpg') }}"
-                                                    alt="Default Image" />
+                                                <img src="{{ asset('storage/' . Auth::user()->image) }}"
+                                                    class="img-thumbnail" alt="Default Image" />
                                             @endif
                                         </div>
                                         <div class="content">
@@ -147,12 +147,18 @@
                                             <div class="info clearfix">
                                                 <div class="image">
                                                     <a href="#">
-                                                        <img src="{{ asset('admin/images/default_profile.jpg') }}"
-                                                            alt="Default Image" />
+                                                        @if (Auth::user()->image == null)
+                                                            <img src="{{ asset('admin/images/default_profile.jpg') }}"
+                                                                class="img-thumbnail" alt="Default Image" />
+                                                        @else
+                                                            <img src="{{ asset('storage/' . Auth::user()->image) }}"
+                                                                class="img-thumbnail" alt="Default Image" />
+                                                        @endif
                                                     </a>
                                                 </div>
                                                 <div class="content">
                                                     <h5 class="name">
+
                                                         <a href="#">{{ Auth::user()->name }}</a>
                                                     </h5>
                                                     <span class="email">{{ Auth::user()->email }}</span>

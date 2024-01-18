@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
@@ -45,6 +47,37 @@ class AccountController extends Controller
    public function details(){
     return view('admin.account.detail');
    }
+
+   //go to Edit Page
+   public function editAccount(){
+    return view('admin.account.editpage');
+   }
+
+   //go to edit
+   public function edit($id,Request $req){
+
+    $this->validateAccountDetails($req);
+    $data = $this->getAccountDetails($req);
+
+    if($req->hasfile('image')){
+
+      $dbImage = User::where('id',$id)->first();
+      $dbImage = $dbImage->image;
+
+      //if image is already exist
+      if($dbImage !== null){
+        Storage::delete('public/'.$dbImage);
+      }
+
+        $fileName = uniqid().$req->file('image')->getClientOriginalName();
+        $req->file('image')->storeAs('public',$fileName);
+        $data['image'] =$fileName;
+    }
+    User::where('id',$id)->update($data);
+    return redirect()->route('admin#accountDeatils');
+
+   }
+
    //private functions
 
    //validate change password fields
@@ -55,5 +88,27 @@ class AccountController extends Controller
         'newPassword' => 'required|min:8',
         'comfirmPassword' => 'required|min:8|same:newPassword'
     ])->validate();
+   }
+
+   public function validateAccountDetails($req){
+    Validator::make($req->all(),[
+
+        'name'  => 'required',
+        'email' => 'required',
+        'phone' => 'required',
+       'address' => 'required',
+       'updated_at' => Carbon::now('UTC')->setTimezone('Asia/Yangon'),
+
+    ])->validate();
+
+   }
+
+   public function getAccountDetails($req){
+    return [
+        'name' => $req->name,
+        'email'=> $req->email,
+        'phone'=> $req->phone,
+        'address' => $req->address,
+    ];
    }
 }
