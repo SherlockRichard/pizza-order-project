@@ -68,6 +68,7 @@
                                 <th>name</th>
                                 <th>views</th>
                                 <th>price</th>
+                                <th>Category</th>
 
                                 <th></th>
                             </tr>
@@ -81,6 +82,7 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->view_count }}</td>
                                     <td>{{ $item->price }}</td>
+                                    <td>{{ $item->category_name }}</td>
 
 
                                     <td>

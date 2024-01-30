@@ -12,11 +12,14 @@ class ProductsController extends Controller
 {
     //go to product list page
     public function listPage(){
-    $products = Products::when(request('searchKey'),function($query){
-            $query->where('name','like','%'.request('searchKey').'%');
+    $products = Products::select('products.*','categories.name as category_name')
+             ->when(request('searchKey'),function($query){
+            $query->where('products.name','like','%'.request('searchKey').'%');
            })
-        ->orderBy('created_at','desc')
-        ->paginate(3);
+           ->leftJoin('categories','products.category_id','categories.id')
+            // ->orderBy('created_at','desc'),
+            ->paginate(3);
+
         $products -> appends(request()->all());
         return view('admin.product.list',compact('products'));
     }
