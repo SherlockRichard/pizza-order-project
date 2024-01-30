@@ -85,11 +85,13 @@
 
                                     <td>
                                         <div class="table-data-feature">
-                                            <button class="item" data-toggle="tooltip" data-placement="top"
-                                                title="View">
-                                                <i class="fa-regular fa-eye"></i>
-                                            </button>
-                                            <a href="{{ route('admin#categoryEditPage', $item->id) }}">
+                                            <a href="{{ route('admin#productDetails', $item->id) }}">
+                                                <button class="item" data-toggle="tooltip" data-placement="top"
+                                                    title="View">
+                                                    <i class="fa-regular fa-eye"></i>
+                                                </button>
+                                            </a>
+                                            <a href="{{ route('admin#productEditPage', $item->id) }}">
                                                 <button class="item" data-toggle="tooltip" data-placement="top"
                                                     title="Edit">
                                                     <i class="zmdi zmdi-edit "></i>
