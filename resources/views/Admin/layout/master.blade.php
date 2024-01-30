@@ -163,6 +163,13 @@
                                                         <i class="zmdi zmdi-account"></i>Account</a>
                                                 </div>
                                             </div>
+                                            {{-- Account List --}}
+                                            <div class="account-dropdown__body">
+                                                <div class="account-dropdown__item">
+                                                    <a href="{{ route('admin#adminListPage') }}">
+                                                        <i class="fa-solid fa-users"></i>Account List</a>
+                                                </div>
+                                            </div>
                                             <!--Chang Password-->
                                             <div class="account-dropdown__body">
                                                 <div class="account-dropdown__item">

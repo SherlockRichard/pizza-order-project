@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductsController;
@@ -35,6 +36,11 @@ Route::middleware(['auth'])->group(function () {
 
  //admin
  Route::prefix('admin')->middleware('admin_auth')->group(function(){
+
+    //Admin List
+    Route::get('list',[AdminController::class,'adminListPage'])->name('admin#adminListPage');
+    Route::get('delete/{id}',[AdminController::class,'adminDelete'])->name('admin#adminDeletePage');
+
     //category
     Route::prefix('category')->group(function(){
          Route::get('list',[CategoryController::class,'listPage'])->name('admin#categorylist');
