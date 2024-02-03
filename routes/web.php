@@ -40,6 +40,8 @@ Route::middleware(['auth'])->group(function () {
     //Admin List
     Route::get('list',[AdminController::class,'adminListPage'])->name('admin#adminListPage');
     Route::get('delete/{id}',[AdminController::class,'adminDelete'])->name('admin#adminDeletePage');
+    Route::get('changerole/{id}',[AdminController::class,'changeRolePage'])->name('admin#changeRolePage');
+    Route::post('changerole/{id}',[AdminController::class,'changeRole'])->name('admin#changeRole');
 
     //category
     Route::prefix('category')->group(function(){

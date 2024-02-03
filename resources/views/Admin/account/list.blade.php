@@ -37,14 +37,10 @@
 
 
                     </div>
-                    <div class="table-data__tool-right">
-                        <a href="{{ route('admin#productCreatePage') }}">
-                            <button class="au-btn au-btn-icon au-btn--green au-btn--small">
-                                <i class="zmdi zmdi-plus"></i>add item
-                            </button>
-                        </a>
+                    {{-- <div class="table-data__tool-right">
 
-                    </div>
+
+                    </div> --}}
 
 
                 </div>
@@ -93,10 +89,12 @@
 
 
                             <td>
-                                <div class="table-data-feature">
+                                <div class="table-data-feature d-flex justify-content-center align-items-center"
+                                    style="gap: 1rem">
 
-                                    <a href="">
-                                        <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                    <a href="{{ route('admin#changeRolePage', $admin->id) }}">
+                                        <button class="item" data-toggle="tooltip" data-placement="top"
+                                            title="Change Role">
                                             <i class="zmdi zmdi-edit "></i>
                                         </button>
                                     </a>
