@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\User\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,11 +30,23 @@ Route::middleware(['auth'])->group(function () {
    //user
 
    Route::prefix('user')->middleware('user_auth')->group(function(){
-    Route::get('list',function(){
-     return view('user.list');
-       })->name('user#list');
+   Route::get('home',[UserController::class,'home'])->name('user#Home');
+
+   Route::prefix('password')->group(function (){
+    Route::get('change',[UserController::class,'changePasswordPage'])->name('user#changePasswordPage');
+    Route::post('change',[UserController::class,'changePassword'])->name('user#changePassword');
+
+   });
+   Route::prefix('account')->group(function(){
+    Route::get('edit',[UserController::class,'editPage'])->name('user#accountEditPage');
+    Route::post('edit',[UserController::class,'edit'])->name('user#accountEdit');
+
+
+
    });
 
+
+   });
  //admin
  Route::prefix('admin')->middleware('admin_auth')->group(function(){
 

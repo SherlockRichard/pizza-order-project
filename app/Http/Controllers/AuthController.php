@@ -30,7 +30,7 @@ class AuthController extends Controller
     else {
         // redirect to user dashboard
         // return view('user.list');
-        return redirect()->route('user#list');
+        return redirect()->route('user#Home');
     }
     }
 }
